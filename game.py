@@ -103,8 +103,43 @@ class Game():
 
                     print self.playerList[self.currentPlayer].name + ' gives the gun to ' + self.playerList[self.currentPlayer + 1].name + '.'
 
+                    self.currentPlayer += 1 # Move the current player to the next
                     raw_input()
 
-        else:
-            # TODO: Put lastman gametype here
-            print 'Lastman gametype is supposed to be here!'
+        elif self.gametype == 'lastman':
+            # We need the game to loop while there is still more than 1 player.
+            while len(self.playerList) > 1:
+                if self.currentPlayer > self.maxPlayers:
+                    # Reset the counter if we have gone through the list
+                    self.currentPlayer = 1
+                print 'It is now ' + self.playerList[self.currentPlayer].name + '\'s turn!'
+
+                # Ask the player to shoot themself.
+                print self.playerList[self.currentPlayer].name + ', please press any key to shoot yourself.'
+                raw_input()
+
+                print self.playerList[self.currentPlayer].name + ' pulls the trigger.'
+                raw_input()
+
+                if gun.shoot() == 1:
+                    # The current player has been shot!
+                    print 'BANG!'
+                    print self.playerList[self.currentPlayer].name + ' has been shot and is out of the game!'
+
+                    # Now let's remove the player from the list
+                    self.removePlayerFromGame(self.playerList[self.curentPlayer])
+
+                    # We won't increment the current player because if the player has been shot and removed
+                    # from the game, the next person in the list automatically takes his place.
+                else:
+                    # The player didn't get shot
+                    print '*click*'
+                    print self.playerList[self.currentPlayer].name + ' is still alive!'
+
+                    print self.playerList[self.currentPlayer].name + ' gives the gun to ' + self.playerList[self.currentPlayer + 1].name + '.'
+                    self.currentPlayer += 1 # Move the current player to the next
+                    raw_input()
+
+            # Now that the game is over, let's tell everyone who won
+            print 'GAME OVER!'
+            print self.playerList[1] + ' is the winner! Congratulations!'

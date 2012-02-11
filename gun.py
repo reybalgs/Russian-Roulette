@@ -25,10 +25,10 @@ class Gun():
         # we will put the 1 value (loaded bullet).
 
         random.seed()
-        self.bulletIndex = random.randint(1,6)
+        bulletIndex = random.randint(1,6)
         
         # Now let's put that bullet in the selected index.
-        self.cylinder.insert(self.bulletIndex, 1)
+        self.cylinder.insert(bulletIndex, 1)
 
         # Now let's put the cylinder location into the first cylinder.
         self.currentCylinder = 1
@@ -44,3 +44,26 @@ class Gun():
         self.CurrentCylinder += 1 # Rotate the cylinder
 
         return cylinderValue
+
+    def reload():
+        """ Reloads the gun, or to put it in more general terms, removes all
+            the rounds in the gun (if any), then puts a fresh new bullet
+            in a random location.
+
+            NOTE: This does not reset the location of the current cylinder,
+            unlike the __init__ function.
+
+        """
+        
+        bulletIndex = 1 # A simple counter variable
+
+        while bulletIndex <= len(self.cylinder):
+            self.cylinder[bulletIndex] = 0
+
+        # Now let's put a random bullet somewhere
+
+        random.seed()
+        bulletIndex = random.randint(1,6)
+
+        # Put the bullet in the selected index
+        self.cylinder.insert(bulletIndex, 1)
