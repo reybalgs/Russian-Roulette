@@ -3,6 +3,8 @@
 # This module contains the classes and functions for running "games" in the
 # game, whether if this is a single player or multi player game.
 
+import os
+
 from gun import *
 
 class Game():
@@ -28,7 +30,7 @@ class Game():
         # Set the gametype of the game.
         self.gametype = gametype
 
-    def addPlayerToGame(player):
+    def addPlayerToGame(self, player):
         """ This function adds a player into the list of players playing
             the game.
         """
@@ -36,7 +38,7 @@ class Game():
         self.playerList.append(player)
 
         # Debugging message
-        print player.name + ' has been added into the game!'
+        print player.name + ' has been added into the game!\n'
 
     def removePlayerFromGame(player):
         """ This function removes a player from the list of players in the
@@ -64,8 +66,10 @@ class Game():
         # Create and initialize a gun, loaded with 1 bullet.
         gun = Gun()
 
-        # DEBUG TODO: REMOVE THIS
-        print len(self.playerList)
+        # Print how many people are playing the game
+        print 'There are ' + str(self.maxPlayers) + ' players in this game'
+
+        raw_input()
 
         # First we put it in a loop depending on the game type.
         
@@ -75,13 +79,18 @@ class Game():
             bullet = 1
 
             while bullet == 1: # Loop while nobody is shot yet
+                os.system('clear')
+
                 if self.currentPlayer > self.maxPlayers - 1:
                     # Reset the counter if we have gone through the list
                     self.currentPlayer = 0
                 print 'It is now ' + self.playerList[self.currentPlayer].name + '\'s turn!'
 
+                # Let's spin the cylinder first for randomness
+                gun.spin()
+
                 # Ask the player to shoot themself.
-                print self.playerList[self.currentPlayer].name + ', please press any key to shoot yourself.'
+                print self.playerList[self.currentPlayer].name + ', please press the return key to shoot yourself.'
                 raw_input()
 
                 if gun.shoot() == 1:
@@ -97,6 +106,12 @@ class Game():
 
                     raw_input()
 
+                    print 'GAME OVER!'
+                    print 'Congratulations, ' + self.playerList[self.currentPlayer].name + '!'
+                    print 'You are now dead!'
+
+                    raw_input()
+
                 else:
                     # It did nothing, give the gun to the next player.
                     print self.playerList[self.currentPlayer].name + ' pulls the trigger.'
@@ -109,7 +124,9 @@ class Game():
                         print self.playerList[self.currentPlayer].name + ' puts the gun against their head again.'
 
                     else: # We have more than one player
-                        print self.playerList[self.currentPlayer].name + ' gives the gun to ' + self.playerList[self.currentPlayer].name + '.'
+                        if self.currentPlayer == self.maxPlayers:
+                            # If we are at the end of the player list
+                            print self.playerList[self.currentPlayer].name + ' gives the gun to ' + self.playerList[0].name + '.'
 
                     self.currentPlayer += 1 # Move the current player to the next
                     raw_input()
@@ -123,7 +140,7 @@ class Game():
                 print 'It is now ' + self.playerList[self.currentPlayer].name + '\'s turn!'
 
                 # Ask the player to shoot themself.
-                print self.playerList[self.currentPlayer].name + ', please press any key to shoot yourself.'
+                print self.playerList[self.currentPlayer].name + ', please press the return key to shoot yourself.'
                 raw_input()
 
                 print self.playerList[self.currentPlayer].name + ' pulls the trigger.'

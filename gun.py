@@ -17,10 +17,6 @@ class Gun():
         while len(self.cylinder) < 6: # While we don't have 6 empty chambers yet
             self.cylinder.append(0)
 
-        # Debugging message to check if we have the correct number of empty
-        # cylinders
-        print 'We have ' + str(len(self.cylinder)) + ' empty cylinders in the gun'
-
         # Now we will get a random number, and use that as the index number where
         # we will put the 1 value (loaded bullet).
 
@@ -45,7 +41,7 @@ class Gun():
 
         return cylinderValue
 
-    def reload():
+    def reload(self):
         """ Reloads the gun, or to put it in more general terms, removes all
             the rounds in the gun (if any), then puts a fresh new bullet
             in a random location.
@@ -67,3 +63,15 @@ class Gun():
 
         # Put the bullet in the selected index
         self.cylinder.insert(bulletIndex, 1)
+
+    def spin(self):
+        """ Spins the cylinder of the gun, effectively "shuffling" the
+            arrangement and getting a random cylinder ready to be fired.
+
+        """
+
+        random.seed()
+        self.currentCylinder = random.randint(1, 6)
+
+        # Announce that the cylinder has been spun
+        print 'The gun\'s cylinder has been spun!'
