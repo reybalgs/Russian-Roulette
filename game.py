@@ -40,7 +40,7 @@ class Game():
         # Debugging message
         print player.name + ' has been added into the game!\n'
 
-    def removePlayerFromGame(player):
+    def removePlayerFromGame(self,player):
         """ This function removes a player from the list of players in the
             game list.
 
@@ -49,7 +49,7 @@ class Game():
         """
         try:
             self.playerList.remove(player)
-            print 'Player ' + player.name + ' is out of the game!'
+            self.maxPlayers -= 1 # Decrease the total number of players
         except NameError:
             print 'Player ' + player.name + ' is an invalid player!'
 
@@ -134,9 +134,11 @@ class Game():
         elif self.gametype == 'lastman':
             # We need the game to loop while there is still more than 1 player.
             while len(self.playerList) > 1:
-                if self.currentPlayer > self.maxPlayers:
+                os.system('clear')
+
+                if self.currentPlayer > self.maxPlayers - 1:
                     # Reset the counter if we have gone through the list
-                    self.currentPlayer = 1
+                    self.currentPlayer = 0
                 print 'It is now ' + self.playerList[self.currentPlayer].name + '\'s turn!'
 
                 # Ask the player to shoot themself.
@@ -150,22 +152,24 @@ class Game():
                     # The current player has been shot!
                     print 'BANG!'
                     print self.playerList[self.currentPlayer].name + ' has been shot and is out of the game!'
-                    self.playerList[self.CurrentPlayer].alive = 0 # Mark the player as dead
+                    self.playerList[self.currentPlayer].alive = 0 # Mark the player as dead
 
                     # Now let's remove the player from the list
-                    self.removePlayerFromGame(self.playerList[self.curentPlayer])
+                    self.removePlayerFromGame(self.playerList[self.currentPlayer])
 
-                    # We won't increment the current player because if the player has been shot and removed
-                    # from the game, the next person in the list automatically takes his place.
+                    raw_input()
+
                 else:
                     # The player didn't get shot
                     print '*click*'
                     print self.playerList[self.currentPlayer].name + ' is still alive!'
-
-                    print self.playerList[self.currentPlayer].name + ' gives the gun to ' + self.playerList[self.currentPlayer + 1].name + '.'
+                    
+                    if self.currentPlayer == self.maxPlayers:
+                        # If we are at the end of the player list
+                        print self.playerList[self.currentPlayer].name + ' gives the gun to ' + self.playerList[0].name + '.'
                     self.currentPlayer += 1 # Move the current player to the next
                     raw_input()
 
             # Now that the game is over, let's tell everyone who won
             print 'GAME OVER!'
-            print self.playerList[1] + ' is the winner! Congratulations!'
+            print self.playerList[0].name + ' is the winner! Congratulations!'
