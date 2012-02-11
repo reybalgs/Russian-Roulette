@@ -51,7 +51,7 @@ class Game():
         except NameError:
             print 'Player ' + player.name + ' is an invalid player!'
 
-    def start():
+    def start(self):
         """ The main function that handles the flow of a game.
 
         """
@@ -59,22 +59,25 @@ class Game():
         self.maxPlayers = len(self.playerList)
 
         # A current player counter
-        self.currentPlayer = 1
+        self.currentPlayer = 0
 
         # Create and initialize a gun, loaded with 1 bullet.
         gun = Gun()
+
+        # DEBUG TODO: REMOVE THIS
+        print len(self.playerList)
 
         # First we put it in a loop depending on the game type.
         
         # Oneshot game type
         if self.gametype == 'oneshot':
             # Add a bullet into the gun
-            self.bullet = 1
+            bullet = 1
 
             while bullet == 1: # Loop while nobody is shot yet
-                if self.currentPlayer > self.maxPlayers:
+                if self.currentPlayer > self.maxPlayers - 1:
                     # Reset the counter if we have gone through the list
-                    self.currentPlayer = 1
+                    self.currentPlayer = 0
                 print 'It is now ' + self.playerList[self.currentPlayer].name + '\'s turn!'
 
                 # Ask the player to shoot themself.
@@ -83,13 +86,14 @@ class Game():
 
                 if gun.shoot() == 1:
                     # The current player has been shot!
-                    self.bullet = 0
+                    bullet = 0
 
                     print self.playerList[self.currentPlayer].name + ' pulls the trigger.'
                     raw_input()
 
                     print 'BANG!'
                     print self.playerList[self.currentPlayer].name + ' has been shot!'
+                    self.playerList[self.currentPlayer].alive = 0 # Mark the player as dead.
 
                     raw_input()
 
@@ -101,7 +105,11 @@ class Game():
                     print '*click*'
                     print self.playerList[self.currentPlayer].name + ' is still alive!'
 
-                    print self.playerList[self.currentPlayer].name + ' gives the gun to ' + self.playerList[self.currentPlayer + 1].name + '.'
+                    if self.maxPlayers == 1: # If we only have one player
+                        print self.playerList[self.currentPlayer].name + ' puts the gun against their head again.'
+
+                    else: # We have more than one player
+                        print self.playerList[self.currentPlayer].name + ' gives the gun to ' + self.playerList[self.currentPlayer].name + '.'
 
                     self.currentPlayer += 1 # Move the current player to the next
                     raw_input()
@@ -125,6 +133,7 @@ class Game():
                     # The current player has been shot!
                     print 'BANG!'
                     print self.playerList[self.currentPlayer].name + ' has been shot and is out of the game!'
+                    self.playerList[self.CurrentPlayer].alive = 0 # Mark the player as dead
 
                     # Now let's remove the player from the list
                     self.removePlayerFromGame(self.playerList[self.curentPlayer])

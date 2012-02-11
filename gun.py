@@ -11,7 +11,7 @@ class Gun():
         otherwise.
 
     """
-    def __init__():
+    def __init__(self):
         self.cylinder = [] # Initialize the empty cylinder
         
         while len(self.cylinder) < 6: # While we don't have 6 empty chambers yet
@@ -19,7 +19,7 @@ class Gun():
 
         # Debugging message to check if we have the correct number of empty
         # cylinders
-        print 'We have ' + len(self.cylinder) + ' empty cylinders in the gun'
+        print 'We have ' + str(len(self.cylinder)) + ' empty cylinders in the gun'
 
         # Now we will get a random number, and use that as the index number where
         # we will put the 1 value (loaded bullet).
@@ -33,7 +33,7 @@ class Gun():
         # Now let's put the cylinder location into the first cylinder.
         self.currentCylinder = 1
 
-    def shoot():
+    def shoot(self):
         """ 'Shoots' the gun. While this is in effect, the gun just puts the
             value of the current cylinder into a buffer, moves the location
             of the current cylinder (rotating the cylinder), the returns
@@ -41,7 +41,7 @@ class Gun():
 
         """
         cylinderValue = self.cylinder[self.currentCylinder] # Put it in the buffer
-        self.CurrentCylinder += 1 # Rotate the cylinder
+        self.currentCylinder += 1 # Rotate the cylinder
 
         return cylinderValue
 
