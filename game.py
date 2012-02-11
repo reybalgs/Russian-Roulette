@@ -140,6 +140,8 @@ class Game():
                     # Reset the counter if we have gone through the list
                     self.currentPlayer = 0
                 print 'It is now ' + self.playerList[self.currentPlayer].name + '\'s turn!'
+                gun.spin() # Spin the cylinder.
+                print self.playerList[self.currentPlayer].name + ' has spun the cylinder!'
 
                 # Ask the player to shoot themself.
                 print self.playerList[self.currentPlayer].name + ', please press the return key to shoot yourself.'

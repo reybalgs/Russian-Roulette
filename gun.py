@@ -92,7 +92,7 @@ class Gun():
         """
 
         random.seed()
-        self.currentCylinder = random.randint(1, 6)
+        self.currentCylinder = random.randint(0, 5)
 
         # Announce that the cylinder has been spun
         print 'The gun\'s cylinder has been spun!'
