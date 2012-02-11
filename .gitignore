@@ -1,0 +1,3 @@
+# Ignore swap files and Python leftovers
+*.swp
+*.pyc
