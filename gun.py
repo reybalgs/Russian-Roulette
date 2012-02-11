@@ -36,14 +36,10 @@ class Gun():
             the buffered value.
 
         """
-        print self.cylinder
-        print 'Location before shooting: ' + str(self.currentCylinder)
-
         cylinderValue = self.cylinder[self.currentCylinder] # Put it in the buffer
 
         if self.cylinder[self.currentCylinder] == 1: # There's a bullet
             # Let's reset it to 0
-            print 'There\'s a bullet!'
             self.cylinder[self.currentCylinder] = 0
             self.reload()
 
@@ -53,7 +49,6 @@ class Gun():
         else:
             self.currentCylinder += 1
 
-        print 'Location after shooting: ' + str(self.currentCylinder)
         return cylinderValue
 
     def reload(self):
@@ -81,10 +76,6 @@ class Gun():
         self.cylinder.pop()
         self.cylinder.insert(bulletIndex, 1)
 
-        print self.cylinder
-
-        raw_input()
-
     def spin(self):
         """ Spins the cylinder of the gun, effectively "shuffling" the
             arrangement and getting a random cylinder ready to be fired.
@@ -93,6 +84,3 @@ class Gun():
 
         random.seed()
         self.currentCylinder = random.randint(0, 5)
-
-        # Announce that the cylinder has been spun
-        print 'The gun\'s cylinder has been spun!'
