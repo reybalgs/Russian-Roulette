@@ -14,5 +14,5 @@ To be honest, Russian Roulette doesn't appear to have originated from Russia at 
     - In single player, the player chooses either to play alone (suicide roulette) or play with bots.
     - In both game modes, the game can be chosen to end either when someone gets shot or when there is only one player left alive.
 *   The early development stages of the game would probably involve it being a console application, as the logic of the game is more important. However, a proper game environment is planned, and I'll use PyGame for it.
-*   Turbo Last Man Standing - a game mode where the number of bullets increase each time 30% of the players gets shot. For example, in a game of six players, if two players dies, an additional bullet is added into the gun cylinder.
+*   Turbo Last Man Standing - a game mode where the number of bullets increase by one for every revolution between the player circle where nobody gets shot. That is, if I went through 5 players with 5 players playing and nobody got shot, the number of bullets gets increased by 1.
 *   And some other features, I won't add anything more as of now to prevent feature creep.
